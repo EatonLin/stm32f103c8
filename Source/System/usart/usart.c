@@ -42,10 +42,6 @@ int GetKey (void)  {
 */
 
 #if EN_USART1_RX
-u8 USART_RX_BUF[USART_REC_LEN];
-u16 USART_RX_STA = 0;
-
-u8 USART1_SEND_DATA[UART_BUFFER_SIZE];
 u8 USART1_RECEIVE_DATA[UART_BUFFER_SIZE];
 u8 USART1_TX_Finish = 1;
 u32 correct_count = 0;
@@ -85,9 +81,9 @@ void uart_init(u32 bound)
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    //USART_ITConfig(USART1, USART_IT_TC, DISABLE);
+    USART_ITConfig(USART1, USART_IT_TC, DISABLE);
     //USART_ITConfig(USART1, USART_IT_RXNE, DISABLE);
-    USART_ITConfig(USART1, USART_IT_IDLE, ENABLE);
+    //USART_ITConfig(USART1, USART_IT_IDLE, ENABLE);
 #endif
     //USART_Cmd(USART1, ENABLE);
 }
@@ -154,3 +150,13 @@ void USART1_IRQHandler(void)
 #endif
 }
 #endif
+
+void SendUartData(u8 *buffer, u8 size)
+{
+	int i = 0;
+    for (i = 0; i < size; i++)
+    {
+        while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
+        USART_SendData(USART1, buffer[i]);
+    }
+}
