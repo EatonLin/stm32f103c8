@@ -42,7 +42,7 @@ void DMA1_Channel4_IRQHandler(void)
     DMA_ClearITPendingBit(DMA1_IT_TC4);
     DMA_Cmd(DMA1_Channel4, DISABLE);
 	DMA_SetCurrDataCounter(DMA1_Channel4, UART_BUFFER_SIZE);
-	USART1_TX_Finish = 1;
+	//USART1_TX_Finish = 1;
 }
 
 void DMA1_Channel5_IRQHandler(void)

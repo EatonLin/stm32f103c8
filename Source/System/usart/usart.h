@@ -3,16 +3,12 @@
 #include "stdio.h"
 #include "sys.h"
 
-#define USART_REC_LEN 200
 #define EN_USART1_RX 1
 
-extern u8 USART_RX_BUF[USART_REC_LEN];
-extern u16 USART_RX_STA;
-extern u8 USART1_TX_Finish;
-
-#define UART_BUFFER_SIZE 5120
+#define UART_BUFFER_SIZE 6
 extern u8 USART1_SEND_DATA[UART_BUFFER_SIZE];
 extern u8 USART1_RECEIVE_DATA[UART_BUFFER_SIZE];
 
 void uart_init(u32 bound);
+void SendUartData(u8 *buffer, u8 size);
 #endif
